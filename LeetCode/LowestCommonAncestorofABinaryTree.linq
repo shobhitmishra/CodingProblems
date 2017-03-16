@@ -12,35 +12,58 @@ void Main()
 	root.left.right.left = new TreeNode(7);
 	root.left.right.right = new TreeNode(4);
 	var ob = new Solution();
-	ob.LowestCommonAncestor(root, root.left.left, root.left.right.left).Dump();
+	ob.LowestCommonAncestor(root, root, root.left.right.left).Dump();
 }
 
-public class TreeNode
+// Define other methods and classes here
+public class TreeNode 
 {
-	public int val;
-	public TreeNode left;
-	public TreeNode right;
-	public TreeNode(int x) { val = x; }
- }
- 
+    public int val;
+    public TreeNode left;
+    public TreeNode right;
+    public TreeNode(int x) { val = x; }
+}
+
 public class Solution
 {
 	public TreeNode LowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q)
 	{
-		if(root == null)
+		var pathSoFar = new List<TreeNode>();
+		
+		var pPath = new List<TreeNode>();
+		GetPathOfNode(root, p, pathSoFar, pPath);		
+		//pPath.Dump();
+		
+		pathSoFar.Clear();
+		
+		var qPath = new List<TreeNode>();
+		GetPathOfNode(root, q, pathSoFar, qPath);
+		//qPath.Dump();
+		
+		if(pPath.Count() == 0 || qPath.Count() == 0)
 			return null;
-		if(root == p || root == q)
-			return root;
 		
-		TreeNode left = LowestCommonAncestor(root.left, p, q);
-		TreeNode right = LowestCommonAncestor(root.right, p, q);
+		int i = 0;
+		while(i < pPath.Count() && i < qPath.Count() && pPath[i] == qPath[i])
+			i++;
+		i--;
 		
-		// if both left and right are not null then it means one node was in 
-		// in left of root and one was in right. In that case root is LCA.
-		if(left != null && right != null)
-			return root;
-		
-		// if left is null then the solution was in right
-		return left == null ? right : left;
-	}	
+		return pPath[i];
+	}
+	
+	private void GetPathOfNode(TreeNode root, TreeNode node, List<TreeNode> pathSoFar, List<TreeNode> desiredPath)
+	{
+		if (root != null)
+		{
+			pathSoFar.Add(root);
+			if (root == node)
+			{
+				desiredPath.AddRange(pathSoFar);	
+				return;
+			}	
+			GetPathOfNode(root.left, node, pathSoFar, desiredPath);
+			GetPathOfNode(root.right, node, pathSoFar, desiredPath);
+			pathSoFar.Remove(root);
+		}
+	}
 }
