@@ -2,51 +2,33 @@
 
 void Main()
 {
-	Console.WriteLine (NthUglyNumber(1));
+	var ob = new Solution();
+	ob.NthUglyNumber(10).Dump();
 }
 
 // Define other methods and classes here
-public int NthUglyNumber(int n) {
-	var qDict = new Dictionary<int, Queue<int>>();
-	var uglyNumHashSet = new HashSet<int>();
-	
-	// Add one queue for each number
-	qDict.Add(2, new Queue<int>());
-	qDict.Add(3, new Queue<int>());
-	qDict.Add(5, new Queue<int>());
-	AddToEverything(1, uglyNumHashSet, qDict);
-	int latest = 1;
-	while(uglyNumHashSet.Count < n)
+public class Solution
+{
+	public int NthUglyNumber(int n)
 	{
-		int minQkey = FindTheMinQueue(qDict);
-		int nextUgly = minQkey * qDict[minQkey].Dequeue();
-		if(!uglyNumHashSet.Contains(nextUgly))
+		var uglyNums = new List<long>() { 0, 1};
+		if(n < 2)
+			return 1;
+		int ptr2 = 1;
+		int ptr3 = 1;
+		int ptr5 = 1;
+		for (int i = 2; i <= n; i++)
 		{
-			AddToEverything(nextUgly, uglyNumHashSet, qDict);
-			latest = nextUgly;
+			var ithUglyNum = Math.Min(2 * uglyNums[ptr2], Math.Min(3 * uglyNums[ptr3], 5 * uglyNums[ptr5]));
+			uglyNums.Add(ithUglyNum);
+			
+			if(2 * uglyNums[ptr2] == ithUglyNum)
+				ptr2++;
+			if (3 * uglyNums[ptr3] == ithUglyNum)
+				ptr3++;
+			if (5 * uglyNums[ptr5] == ithUglyNum)
+				ptr5++;
 		}
-	}
-	return latest;
-}
-
-private int FindTheMinQueue(Dictionary<int, Queue<int>> qDict)
-{
-	var temp = new Dictionary<int, int>();
-	foreach (var key in qDict.Keys)
-	{
-		temp.Add(key, key * qDict[key].Peek());
-	}
-	// return the key for minimum
-	int minimum = temp.OrderBy(kvp=> kvp.Value).First().Key;
-	return minimum;
-	
-}
-
-private void AddToEverything(int number, HashSet<int> hash, Dictionary<int, Queue<int>> qDict)
-{
-	hash.Add(number);
-	foreach (var key in qDict.Keys)
-	{
-		qDict[key].Enqueue(number);
+		return (int)uglyNums[n];
 	}
 }
