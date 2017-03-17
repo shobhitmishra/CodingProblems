@@ -5,7 +5,7 @@ void Main()
 //	var list1 = new List<string> { "a", "b", "c" };
 //	var list2 = new List<string> { "d", "e", "f", "g"};
 	var ob = new Solution();
-	ob.LetterCombinations("234").Dump();
+	ob.LetterCombinations("23").Dump();
 }
 
 // Define other methods and classes here
@@ -45,7 +45,7 @@ public class Solution
 		{
 			foreach (var str2 in b)
 			{
-				result.Add(string.Concat(str1,str2));
+				result.Add(str1 + str2);
 			}
 		}
 		return result;
