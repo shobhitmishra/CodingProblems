@@ -9,9 +9,7 @@ void Main()
 }
 
 // Define other methods and classes here
-class TrieNode {
-    // Initialize your data structure here.
-    
+class TrieNode {    
 	// indicates if this node is a leaf node
     public bool isWord;
 	//how many words start with this prefix
