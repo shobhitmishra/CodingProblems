@@ -25,9 +25,11 @@ public class Node
 public class LRUCache
 {
 	// Least recently used on back and most recently used on front
-	Node head, tail;
+	Node head = null;
+	Node tail = null;
 	int capacity;
 	public Dictionary<int, Node> nodeDict = new Dictionary<int, Node>();
+	
 	public LRUCache(int capacity)
 	{
 		this.capacity = capacity;
@@ -38,24 +40,28 @@ public class LRUCache
 		if(n == null)
 			return;
 		n.next = head;
+		n.prev = null;
+		
 		if(head != null)
 			head.prev = n;		
+		
 		head = n;
+		
 		if(tail == null)
 			tail = head;
 	}
 
-//	public void Print()
-//	{
-//		//nodeDict.Dump("dictionary");
-//		Console.WriteLine("start of Print");
-//		var node = head;
-//		while (node != null)
-//		{
-//			Console.WriteLine(node.value);
-//			node = node.next;
-//		}
-//	}
+	public void Print()
+	{
+		//nodeDict.Dump("dictionary");
+		Console.WriteLine("start of Print");
+		var node = head;
+		while (node != null)
+		{
+			Console.WriteLine(node.value);
+			node = node.next;
+		}
+	}
 
 	private void RemoveNode(Node n)
 	{
@@ -78,8 +84,10 @@ public class LRUCache
 			var node = nodeDict[key];
 			RemoveNode(node);
 			SetHead(node);
+			//Console.WriteLine("Get result {0}", node.value);
 			return node.value;		
-		}				
+		}
+		//Console.WriteLine("Get result {0}", -1);
 		return -1;		
 	}
 
@@ -97,10 +105,11 @@ public class LRUCache
 			var node = new Node(key, value);			
 			if (nodeDict.Count() >= capacity)
 			{
+				nodeDict.Remove(tail.key);
 				RemoveNode(tail);
-				nodeDict.Remove(tail.key);				
-			}			
+			}
 			SetHead(node);
+
 			nodeDict.Add(key, node);
 		}
 		//Print();
