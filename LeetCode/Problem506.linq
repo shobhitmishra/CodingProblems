@@ -3,7 +3,7 @@
 void Main()
 {
 	var ob = new Solution();
-	var input = new int[] {5};
+	var input = new int[] {};
 	ob.FindRelativeRanks(input).Dump();
 }
 
