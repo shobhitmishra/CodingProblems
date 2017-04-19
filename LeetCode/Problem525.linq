@@ -11,14 +11,40 @@ Explanation: [0, 1] is the longest contiguous subarray with equal number of 0 an
 void Main()
 {
 	var ob = new Solution();
-	var input = new int[] {};
+	var input = new int[] {0,0,0,0,1,1};
 	ob.FindMaxLength(input).Dump();
 }
 
 // Define other methods and classes here
 public class Solution 
 {
-    public int FindMaxLength(int[] nums) 
+	// This is an O(N) solution
+	public int FindMaxLength(int[] nums)
+	{
+		// This dictionary contains the index value of different on zero and one
+		int maxLength = 0;
+		int zeroAndOneDifference = 0;
+		var zeroOneBalanceDict = new Dictionary<int, int>();
+		zeroOneBalanceDict.Add(0, -1);
+		for (int i = 0; i < nums.Length; i++)
+		{
+			int num = nums[i];
+			if (num == 0)
+				zeroAndOneDifference--;
+			else
+			{
+				zeroAndOneDifference++;
+			}
+			if(zeroOneBalanceDict.ContainsKey(zeroAndOneDifference))
+				maxLength = Math.Max(maxLength, i - zeroOneBalanceDict[zeroAndOneDifference]);
+			else
+				zeroOneBalanceDict.Add(zeroAndOneDifference, i);
+		}		
+		
+		return maxLength;		
+	}
+	
+	public int FindMaxLengthNSquare(int[] nums) 
 	{
        	int[] zeroCount = new int[nums.Length + 1];
 		int[] oneCount = new int[nums.Length + 1];
