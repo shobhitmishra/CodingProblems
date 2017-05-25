@@ -14,7 +14,7 @@ void Main()
 		PrintList(head);
 		Console.WriteLine($"Removing {i}th Node");
 		Console.WriteLine("ListAfter Removing");
-		ob.RemoveNthFromEnd(head,i);
+		head = ob.RemoveNthFromEnd2(head,i);
 		PrintList(head);
 		Console.WriteLine("------------");
 	}
@@ -75,6 +75,34 @@ public class Solution
 		if(nthNode == head)
 			return nthNode.next;
 		prev.next = nthNode.next;
+		return head;
+	}
+	
+	public ListNode RemoveNthFromEnd2(ListNode head, int n)
+	{
+		if (head == null)
+			return null;
+		
+		var dummy = new ListNode(0);
+		dummy.next = head;
+
+		var fastNode = head;		
+		while (n > 0)
+		{
+			fastNode = fastNode.next;
+			n--;
+		}
+
+		while (fastNode != null)
+		{
+			dummy = dummy.next;
+			fastNode = fastNode.next;
+		}
+		
+		if(dummy.next == head)
+			return head.next;
+		
+		dummy.next = dummy.next.next;
 		return head;
 	}
 }
