@@ -33,9 +33,7 @@ public class Solution
 {
 	int diameter = 0;
 	public int DiameterOfBinaryTree(TreeNode root)
-	{
-		if(root == null)
-			return 0;
+	{	
 		GetHeight(root);
 		return diameter;
 	}
