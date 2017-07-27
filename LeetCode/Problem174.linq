@@ -1,6 +1,4 @@
-<Query Kind="Program">
-  <Reference>&lt;RuntimeDirectory&gt;\System.IO.dll</Reference>
-</Query>
+<Query Kind="Program" />
 
 void Main()
 {
