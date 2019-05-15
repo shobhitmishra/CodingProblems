@@ -2,9 +2,9 @@
 
 void Main()
 {
+	var dungeon = new int[,] { { -2, -3, 3 }, { -5, -10, 1 }, {10, 30, -5}};
 	var ob = new Solution();
-	var input = new int[,] { {-2,-3,3 }, {-5,-10,1 }, {10,30,-5}};
-	ob.CalculateMinimumHP(input).Dump();
+	ob.CalculateMinimumHP(dungeon).Dump();
 }
 
 // Define other methods and classes here
@@ -14,31 +14,25 @@ public class Solution
 	{
 		int rows = dungeon.GetLength(0);
 		int cols = dungeon.GetLength(1);
-		// initialize first row and col
-		var cumSum = 0;
-		for (int j = 0; j < cols; j++)
+		var dp = new int[rows,cols];
+		dp[rows-1, cols-1] = Math.Max(1, 1 - dungeon[rows-1, cols-1]);
+		
+		for (int j = cols -2; j >= 0; j--)
 		{
-			cumSum += dungeon[0,j];
-			dungeon[0,j] = cumSum;
+			dp[rows-1,j] = Math.Max(1, dp[rows-1, j+1] - dungeon[rows-1,j]);			
+		}
+		for (int i = rows-2; i >= 0 ; i--)
+		{
+			dp[i,cols-1] = Math.Max(1,dp[i+1,cols-1] - dungeon[i,cols-1]);
 		}
 		
-		cumSum = 0;
-		for (int i = 0; i < rows; i++)
+		for (int i = rows - 2; i >= 0 ; i--)
 		{
-			cumSum += dungeon[i,0];
-			dungeon[i,0] = cumSum;
-		}		
-		
-		var result = new List<int>();
-		for (int i = 1; i < rows; i++)
-		{
-			for (int j = 1; j < cols; j++)
+			for (int j = cols - 2; j >= 0; j--)
 			{
-				dungeon[i,j] += Math.Max(dungeon[i-1,j], dungeon[i,j-1]);
-				result.Add(dungeon[i,j]);
+				dp[i,j] = Math.Max(1, Math.Min(dp[i+1,j], dp[i,j+1]) - dungeon[i,j]);		
 			}
 		}
-		
-		return 0;
+		return dp[0,0];
 	}
 }
