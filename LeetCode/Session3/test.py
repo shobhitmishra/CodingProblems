@@ -1,5 +1,3 @@
-expected = ["a a a a a a a","aa a a a a a","a aa a a a a","a a aa a a a","aa aa a a a","aaaa a a a","a a a aa a a","aa a aa a a","a aa aa a a","a aaaa a a","a a a a aa a","aa a a aa a","a aa a aa a","a a aa aa a","aa aa aa a","aaaa aa a","a a aaaa a","aa aaaa a","a a a a a aa","aa a a a aa","a aa a a aa","a a aa a aa","aa aa a aa","aaaa a aa","a a a aa aa","aa a aa aa","a aa aa aa","a aaaa aa","a a a aaaa","aa a aaaa","a aa aaaa"]
-output = ['a a a a a a a', 'a a a a a aa', 'a a a a aa a', 'a a a aa a a', 'a a a aa aa', 'a a a aaaa', 'a a aa a a a', 'a a aa a aa', 'a a aa aa a', 'a a aaaa a', 'a aa a a a a', 'a aa a a aa', 'a aa a aa a', 'a aa aa a a', 'a aa aa aa', 'a aa aaaa', 'a aaaa a a', 'a aaaa aa', 'aa a a a a a', 'aa a a a aa', 'aa a a aa a', 'aa a aa aa', 'aa a aa aa', 'aa a aaaa', 'aa aa a a a', 'aa aa a aa', 'aa aa aa a', 'aa aaaa a', 'aaaa a a a', 'aaaa aaa', 'aaaa aa a']
-print(set(expected) - set(output))
-print(len(expected))
-print()
+st = "12345678"
+
+print(st[1::-1])
