@@ -7,7 +7,3 @@ def max_sub_array_of_size_k(k, arr):
             maxSum = max(maxSum, currSum)
             currSum -= arr[i-k+1]
     return maxSum
-
-input = [2, 1, 5, 1, 3, 2]
-k = 3
-print(max_sub_array_of_size_k(k,input))
