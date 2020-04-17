@@ -89,13 +89,13 @@ public class Solution
 			return;
 		}
 		
-		// Get all neigbor nodes
+		// Get all neighbor nodes
 		var neighbors = adjList[currentWord];		
 		var currLength = pathCopy.Count();
 		
 		foreach (var neighbor in neighbors)
 		{
-			// ig neighbor is on shortest path then call DFS on it
+			// if neighbor is on shortest path then call DFS on it
 			if(shortesDist[neighbor] == currLength)
 				DoDFS(neighbor, endWord, adjList, shortesDist, pathCopy, result);
 		}		
